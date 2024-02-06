@@ -1,0 +1,38 @@
+version: "3.8"
+services:
+  teleport:
+    image: public.ecr.aws/gravitational/teleport-distroless:15.0.0
+    volumes:
+      - ./teleport/config:/etc/teleport
+      - ./teleport/data:/var/lib/teleport
+    networks:
+      - caddy
+    labels:
+      caddy: "${TELEPORT_URL}, *.${TELEPORT_URL}"
+      caddy.reverse_proxy: "{{upstreams https 3080}}"
+      caddy.tls.dns: cloudflare {env.CLOUDFLARE_AUTH_TOKEN}
+      caddy.reverse_proxy.transport: http
+      caddy.reverse_proxy.transport.tls: ""
+      caddy.reverse_proxy.transport.tls_insecure_skip_verify: ""
+
+  caddy:
+    image: gridexx/caddy-docker-cloudflare:1.0.0
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      - CADDY_INGRESS_NETWORKS=caddy
+      - CLOUDFLARE_AUTH_TOKEN=${CLOUDFLARE_AUTH_TOKEN}
+    networks:
+      - caddy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - caddy_data:/data
+    restart: unless-stopped
+
+networks:
+  caddy:
+    external: true
+
+volumes:
+  caddy_data: {}
