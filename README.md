@@ -97,3 +97,10 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 ## Author
 
 Made by [GridexX](https://github.com/GridexX) during February 2024 🏰
+
+## References
+
+- [Teleport behind Caddy reverse as a reverse proxy](https://github.com/gravitational/teleport/discussions/16370)
+- [Cloudflare DNS plugin](https://github.com/caddy-dns/cloudflare)
+- [Docker-proxy](https://github.com/lucaslorentz/caddy-docker-proxy)
+- [Executer Teleport dans Docker](https://fr.linux-console.net/?p=20492)
