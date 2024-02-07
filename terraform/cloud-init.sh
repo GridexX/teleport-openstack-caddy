@@ -22,10 +22,6 @@ sudo usermod -aG docker $USER
 
 # --- Configure Caddy and Teleport
 mkdir -p ~/compose-teleport/teleport/{config,data}
-# Add a DNS Entry in Cloudflare for the domain
-# Add a CNAME record for the domain to point to the server's IP address
-# Add a wildcard A record for the domain to point to the server's IP address
-curl -L 
 sudo docker network create caddy --driver=bridge
 
 cd ~/compose-teleport
